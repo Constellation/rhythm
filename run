@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+self_file = File.ftype(__FILE__) == 'link'? File.readlink(__FILE__) : __FILE__
+$:.unshift(File.dirname(self_file) + "/lib")
+
+require 'rhythm'
+
+# core phase
+require 'rhythm/system'
+require 'rhythm/event'
+require 'rhythm/about'
+require 'rhythm/configparser'
+require 'rhythm/configure'
+require "rhythm/dircolors"
+require 'rhythm/core'
+require "rhythm/termstrwidth"
+require 'rhythm/api'
+require "rhythm/basic_fs"
+
+# singleton and class phase
+require "rhythm/filelist"
+require 'rhythm/mask'
+require "rhythm/pane"
+require "rhythm/overlay"
+require "rhythm/statusline"
+require "rhythm/commandline"
+require "rhythm/notify"
+require "rhythm/prompt"
+require "rhythm/log"
+
+# extension phase
+require "rhythm/std_fs"
+require "rhythm/arc_fs"
+require "rhythm/ftp_fs"
+require "rhythm/libunrar"
+require 'rhythm/setting'
+
+Rhythm::Core::run
+

@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+require "optparse"
+require "rubygems"
+require "lib/rhythm/packager"
+# Encoding check for ruby 1.9
+$KCODE="u" unless Object.const_defined? :Encoding
+
+def usage
+  puts <<-EOS
+Rhythm Package Command
+  usage:
+    pack input_directory output_file
+    unpack input_package output_directory
+    show input_package
+  ex:
+    rhythm-package pack ~/test ~/output.rhythm
+  EOS
+end
+@commands = {}
+@commands[:pack] = Proc.new do |args|
+  if args.size == 2
+    Rhythm::Package::Packager.new(args[0]).pack(args[1])
+  else
+    usage
+  end
+end
+@commands[:unpack] = Proc.new do |args|
+  if args.size == 2
+    Rhythm::Package::UnPackager.new(args[0]).unpack(args[1])
+  else
+    usage
+  end
+end
+@commands[:show] = Proc.new do |args|
+  if args.size == 1
+    Rhythm::Package::UnPackager.new(args.first).show_manifest
+  else
+    usage
+  end
+end
+
+if ARGV.size.zero?
+  usage
+else
+  command = @commands[ARGV.first.to_sym]
+  if command
+    command.call ARGV.last(ARGV.size - 1)
+  else
+    usage
+  end
+end
+

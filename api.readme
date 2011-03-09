@@ -1,0 +1,8 @@
+API 設計指針
+簡易な機能追加API
+  mask追加
+キー定義変更
+コマンド追加
+  Rhythm::Commandインターフェイス
+Classをある意味でのSingletonと考えた機能追加メソッド
+
